@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MaterialApp(home: ScalePage()));
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: ScalePage()));
 }
 
 class ScalePage extends StatefulWidget {
@@ -18,19 +20,26 @@ class _ScalePageState extends State<ScalePage> {
 
   String? _weight;
   StreamSubscription? _sub;
+  String _debug = 'Starting...';
 
   @override
   void initState() {
     super.initState();
+
+    setState(() {
+      _debug = 'Listening to stream...';
+    });
+
     _sub = _scaleStream.receiveBroadcastStream().listen(
       (event) {
         setState(() {
-          // event = string น้ำหนัก หรือ null ถ้าไม่เจอเครื่องชั่ง
+          _debug = 'Received: $event';
           _weight = event as String?;
         });
       },
       onError: (err) {
         setState(() {
+          _debug = 'Error: $err';
           _weight = null;
         });
       },
@@ -45,14 +54,25 @@ class _ScalePageState extends State<ScalePage> {
 
   @override
   Widget build(BuildContext context) {
-    final text = _weight == null ? '— ไม่พบเครื่องชั่ง —' : '$_weight kg';
+    final text = _weight == null ? 'ไม่พบเครื่องชั่ง' : '$_weight kg';
 
     return Scaffold(
       appBar: AppBar(title: const Text('Scale USB Realtime')),
       body: Center(
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Debug: $_debug',
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
