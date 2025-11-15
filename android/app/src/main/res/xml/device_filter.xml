@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CH340 USB Serial -->
+    <usb-device vendor-id="6790" product-id="29987" />
+    <usb-device vendor-id="6790" product-id="29986" />
+    <usb-device vendor-id="6790" product-id="21795" />
+    
+    <!-- STMicroelectronics (เครื่องชั่งของคุณ) -->
+    <usb-device vendor-id="1155" product-id="22339" />
+</resources>
