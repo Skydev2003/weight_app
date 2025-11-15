@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../features/scale/presentation/scale_page.dart';
+import '../screens/scale_page.dart';
 
 class WeightApp extends StatelessWidget {
   const WeightApp({super.key});

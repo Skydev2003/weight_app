@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../application/scale_controller.dart';
-import 'widgets/scale_widgets.dart';
+import '../widgets/scale_controller.dart';
+import '../widgets/scale_widgets.dart';
 
 class ScalePage extends ConsumerStatefulWidget {
   const ScalePage({super.key});

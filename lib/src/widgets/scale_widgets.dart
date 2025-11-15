@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../application/scale_controller.dart';
+import 'scale_controller.dart';
 
 class StatusIndicator extends StatelessWidget {
   const StatusIndicator({required this.state, super.key});
