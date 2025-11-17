@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../widgets/scale_controller.dart';
+import '../controllers/scale_controller.dart';
+import '../models/scale_state.dart';
 import '../widgets/scale_widgets.dart';
 
 class ScalePage extends ConsumerStatefulWidget {
@@ -50,8 +51,9 @@ class _ScalePageState extends ConsumerState<ScalePage>
     final controller = ref.read(scaleControllerProvider.notifier);
 
     final hasWeight = state.targetWeight != null;
-    final weightText =
-        hasWeight ? _formatWeight(_displayWeight) : 'ไม่พบเครื่องชั่ง';
+    final weightText = hasWeight
+        ? _formatWeight(_displayWeight)
+        : 'ไม่พบเครื่องชั่ง';
 
     return Scaffold(
       appBar: AppBar(
@@ -75,11 +77,7 @@ class _ScalePageState extends ConsumerState<ScalePage>
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF071307),
-              Color(0xFF0c1c0c),
-              Color(0xFF041003),
-            ],
+            colors: [Color(0xFF071307), Color(0xFF0c1c0c), Color(0xFF041003)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

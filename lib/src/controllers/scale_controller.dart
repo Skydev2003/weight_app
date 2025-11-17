@@ -4,49 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:usb_serial/usb_serial.dart';
 
-enum ScaleStatus { searching, waitingUsb, connected, disconnected, error }
-
-class ScaleState {
-  final ScaleStatus status;
-  final String statusText;
-  final double? targetWeight;
-  final bool isBusy;
-
-  const ScaleState({
-    required this.status,
-    required this.statusText,
-    this.targetWeight,
-    this.isBusy = false,
-  });
-
-  factory ScaleState.initial() => const ScaleState(
-        status: ScaleStatus.searching,
-        statusText: 'กำลังค้นหาเครื่องชั่ง...',
-        isBusy: true,
-      );
-
-  ScaleState copyWith({
-    ScaleStatus? status,
-    String? statusText,
-    double? targetWeight,
-    bool? isBusy,
-  }) {
-    return ScaleState(
-      status: status ?? this.status,
-      statusText: statusText ?? this.statusText,
-      targetWeight: targetWeight ?? this.targetWeight,
-      isBusy: isBusy ?? this.isBusy,
-    );
-  }
-}
+import '../models/scale_state.dart';
 
 final scaleControllerProvider =
     StateNotifierProvider<ScaleController, ScaleState>((ref) {
-  final controller = ScaleController();
-  ref.onDispose(controller.dispose);
-  controller.initialize();
-  return controller;
-});
+      final controller = ScaleController();
+      ref.onDispose(controller.dispose);
+      controller.initialize();
+      return controller;
+    });
 
 class ScaleController extends StateNotifier<ScaleState> {
   ScaleController() : super(ScaleState.initial());
@@ -284,12 +250,7 @@ class ScaleController extends StateNotifier<ScaleState> {
   void _handleError(String message) {
     _closePort();
     _lastNumericWeight = null;
-    _setStatus(
-      ScaleStatus.error,
-      message,
-      busy: false,
-      targetWeight: null,
-    );
+    _setStatus(ScaleStatus.error, message, busy: false, targetWeight: null);
   }
 
   void _commitWeight(double value) {

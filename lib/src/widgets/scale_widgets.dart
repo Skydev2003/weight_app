@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'scale_controller.dart';
+import '../models/scale_state.dart';
 
 class StatusIndicator extends StatelessWidget {
   const StatusIndicator({required this.state, super.key});
@@ -87,10 +87,7 @@ class StatusChip extends StatelessWidget {
         children: [
           Icon(_icon, color: Colors.white),
           const SizedBox(width: 12),
-          Text(
-            state.statusText,
-            style: const TextStyle(fontSize: 16),
-          ),
+          Text(state.statusText, style: const TextStyle(fontSize: 16)),
         ],
       ),
     );
@@ -260,10 +257,7 @@ class InfoCard extends StatelessWidget {
           children: [
             const Text(
               'สถานะการเชื่อมต่อ',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
